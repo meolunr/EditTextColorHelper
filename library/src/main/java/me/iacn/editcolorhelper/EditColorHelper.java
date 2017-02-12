@@ -35,6 +35,9 @@ public class EditColorHelper {
             // Update Cursor Color
             setCursorColor(editText, color, editor);
 
+            // Update Select Handle Color
+            setSelectHandleColor(editText, color, editor);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,6 +60,18 @@ public class EditColorHelper {
 
         Object editor = mEditor.get(editText);
         setCursorColor(editText, color, editor);
+    }
+
+    // Used for external calls
+    public static void setSelectHandleColor(EditText editText, int color) throws Exception {
+        getSelectFieldFromReflect();
+
+        Object editor = mEditor.get(editText);
+        setSelectHandleColor(editText, color, editor);
+    }
+
+    private static void setSelectHandleColor(EditText editText, int color, Object editor) throws Exception {
+
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
