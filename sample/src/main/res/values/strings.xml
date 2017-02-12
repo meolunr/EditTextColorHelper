@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EditColorSample</string>
+    <string name="blue">蓝色</string>
+    <string name="red">红色</string>
+    <string name="orange">橙色</string>
+    <string name="gray">灰色</string>
 </resources>
