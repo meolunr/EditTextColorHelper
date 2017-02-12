@@ -61,9 +61,8 @@ public class EditColorHelper {
             drawable.setTint(color);
         }
 
-        Field cursorDrawableField = editor.getClass().getDeclaredField("mCursorDrawable");
-        cursorDrawableField.setAccessible(true);
-        cursorDrawableField.set(editor, new Drawable[]{drawable, drawable});
+        ReflectUtils.setObjectField(mEditor.getType(), "mCursorDrawable",
+                editor, new Drawable[]{drawable, drawable});
     }
 
     private static void getEditorFieldFromReflect() {
