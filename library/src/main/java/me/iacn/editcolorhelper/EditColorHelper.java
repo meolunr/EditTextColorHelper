@@ -1,7 +1,9 @@
 package me.iacn.editcolorhelper;
 
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
@@ -23,8 +25,11 @@ public class EditColorHelper {
         setHighlightColor(editText, color);
 
         try {
+            getEditorFieldFromReflect();
+            Object editor = mEditor.get(editText);
+
             // Update Cursor Color
-            setCursorColor();
+            setCursorColor(editText, color, editor);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,11 +47,24 @@ public class EditColorHelper {
         editText.setHighlightColor(translateColor);
     }
 
-    public static void setCursorColor(EditText editText, Object editor, int color) throws Exception {
+    public static void setCursorColor(EditText editText, int color) throws Exception {
 
     }
 
-    private static void getEditorFieldFromReflect() {
+    private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
+        int cursorId = mCursorDrawableRes.getInt(editText);
 
+        Drawable drawable = editText.getContext().getDrawable(cursorId);
+        drawable.setTint(color);
+
+        Field cursorDrawableField = editor.getClass().getDeclaredField("mCursorDrawable");
+        cursorDrawableField.setAccessible(true);
+        cursorDrawableField.set(editor, new Drawable[]{drawable, drawable});
+    }
+
+    private static void getEditorFieldFromReflect() {
+        if (mEditor == null) {
+            mEditor = ReflectUtils.getDeclaredField(TextView.class, "mEditor");
+        }
     }
 }
