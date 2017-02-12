@@ -25,18 +25,19 @@ public class EditColorHelper {
         // Update underline color
         setUnderlineColor(editText, color);
 
-        // Update Highlight Color
+        // Update highlight color
         setHighlightColor(editText, color);
 
         try {
             getEditorFieldFromReflect();
+            getCursorFieldFromReflect();
             getSelectFieldFromReflect();
             Object editor = mEditor.get(editText);
 
-            // Update Cursor Color
+            // Update cursor color
             setCursorColor(editText, color, editor);
 
-            // Update Select Handle Color
+            // Update select handle color
             setSelectHandleColor(editText, color, editor);
 
         } catch (Exception e) {
@@ -83,8 +84,6 @@ public class EditColorHelper {
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
-        getCursorFieldFromReflect();
-
         int cursorId = mCursorDrawableRes.getInt(editText);
         Drawable drawable = editText.getContext().getDrawable(cursorId);
 
