@@ -15,7 +15,7 @@ allprojects {
 2.配置依赖
 ```
 dependencies {
-    compile 'com.github.iAcn:EditColorHelper:v1.0'
+    compile 'com.github.iAcn:EditColorHelper:v1.1'
 }
 ```
 3.尽情使用吧
