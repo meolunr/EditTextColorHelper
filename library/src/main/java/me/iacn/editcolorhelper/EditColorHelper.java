@@ -52,10 +52,14 @@ public class EditColorHelper {
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
-        int cursorId = mCursorDrawableRes.getInt(editText);
+        getCursorFieldFromReflect();
 
+        int cursorId = mCursorDrawableRes.getInt(editText);
         Drawable drawable = editText.getContext().getDrawable(cursorId);
-        drawable.setTint(color);
+
+        if (drawable != null) {
+            drawable.setTint(color);
+        }
 
         Field cursorDrawableField = editor.getClass().getDeclaredField("mCursorDrawable");
         cursorDrawableField.setAccessible(true);
@@ -65,6 +69,12 @@ public class EditColorHelper {
     private static void getEditorFieldFromReflect() {
         if (mEditor == null) {
             mEditor = ReflectUtils.getDeclaredField(TextView.class, "mEditor");
+        }
+    }
+
+    private static void getCursorFieldFromReflect() {
+        if (mCursorDrawableRes == null) {
+            mCursorDrawableRes = ReflectUtils.getDeclaredField(TextView.class, "mCursorDrawableRes");
         }
     }
 }
