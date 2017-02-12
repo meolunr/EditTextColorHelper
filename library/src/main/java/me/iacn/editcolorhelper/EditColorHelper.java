@@ -17,6 +17,10 @@ public class EditColorHelper {
     private static Field mEditor;
     private static Field mCursorDrawableRes;
 
+    private static Field mSelectHandleLeft;
+    private static Field mSelectHandleRight;
+    private static Field mSelectHandleCenter;
+
     public static void setColor(EditText editText, int color) {
         // Update underline color
         setUnderlineColor(editText, color);
@@ -78,6 +82,17 @@ public class EditColorHelper {
     private static void getCursorFieldFromReflect() {
         if (mCursorDrawableRes == null) {
             mCursorDrawableRes = ReflectUtils.getDeclaredField(TextView.class, "mCursorDrawableRes");
+        }
+    }
+
+    private static void getSelectFieldFromReflect() {
+        if (mSelectHandleLeft == null || mSelectHandleRight == null || mSelectHandleCenter == null) {
+
+            Class<?> EditorClass = mEditor.getType();
+
+            mSelectHandleLeft = ReflectUtils.getDeclaredField(EditorClass, "mSelectHandleLeft");
+            mSelectHandleRight = ReflectUtils.getDeclaredField(EditorClass, "mSelectHandleRight");
+            mSelectHandleCenter = ReflectUtils.getDeclaredField(EditorClass, "mSelectHandleCenter");
         }
     }
 }
