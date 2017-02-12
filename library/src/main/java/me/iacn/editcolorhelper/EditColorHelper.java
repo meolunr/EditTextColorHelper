@@ -47,8 +47,12 @@ public class EditColorHelper {
         editText.setHighlightColor(translateColor);
     }
 
+    // Used for external calls
     public static void setCursorColor(EditText editText, int color) throws Exception {
+        getEditorFieldFromReflect();
 
+        Object editor = mEditor.get(editText);
+        setCursorColor(editText, color, editor);
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
