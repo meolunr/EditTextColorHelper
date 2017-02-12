@@ -30,6 +30,7 @@ public class EditColorHelper {
 
         try {
             getEditorFieldFromReflect();
+            getSelectFieldFromReflect();
             Object editor = mEditor.get(editText);
 
             // Update Cursor Color
@@ -71,7 +72,14 @@ public class EditColorHelper {
     }
 
     private static void setSelectHandleColor(EditText editText, int color, Object editor) throws Exception {
+        Drawable leftDrawable = (Drawable) mSelectHandleLeft.get(editor);
+        Drawable rightDrawable = (Drawable) mSelectHandleRight.get(editor);
+        Drawable centerDrawable = (Drawable) mSelectHandleCenter.get(editor);
 
+        Drawable[] drawables = new Drawable[]{leftDrawable, rightDrawable, centerDrawable};
+        String[] fields = new String[]{"mTextSelectHandleLeftRes", "mTextSelectHandleRightRes", "mTextSelectHandleRes"};
+
+        updateSelectHandleColor(drawables, fields, editText, color);
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
@@ -86,6 +94,26 @@ public class EditColorHelper {
 
         ReflectUtils.setObjectField(mEditor.getType(), "mCursorDrawable",
                 editor, new Drawable[]{drawable, drawable});
+    }
+
+    private static void updateSelectHandleColor(Drawable[] drawables, String[] fields,
+                                                EditText editText, int color) throws Exception {
+
+        for (int i = 0; i < fields.length; i++) {
+            Drawable drawable = drawables[i];
+
+            if (drawable == null) {
+                Field field = TextView.class.getDeclaredField(fields[i]);
+                field.setAccessible(true);
+                int res = (int) field.get(editText);
+
+                drawable = editText.getContext().getDrawable(res);
+            }
+
+            if (drawable != null) {
+                drawable.setTint(color);
+            }
+        }
     }
 
     private static void getEditorFieldFromReflect() {
