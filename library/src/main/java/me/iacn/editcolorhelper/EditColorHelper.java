@@ -77,10 +77,9 @@ public class EditColorHelper {
         Drawable rightDrawable = (Drawable) mSelectHandleRight.get(editor);
         Drawable centerDrawable = (Drawable) mSelectHandleCenter.get(editor);
 
-        Drawable[] drawables = new Drawable[]{leftDrawable, rightDrawable, centerDrawable};
-        String[] fields = new String[]{"mTextSelectHandleLeftRes", "mTextSelectHandleRightRes", "mTextSelectHandleRes"};
-
-        updateSelectHandleColor(drawables, fields, editText, color);
+        updateSelectHandleColor(leftDrawable, "mTextSelectHandleLeftRes", editText, color);
+        updateSelectHandleColor(rightDrawable, "mTextSelectHandleRightRes", editText, color);
+        updateSelectHandleColor(centerDrawable, "mTextSelectHandleRes", editText, color);
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
@@ -95,20 +94,14 @@ public class EditColorHelper {
                 editor, new Drawable[]{drawable, drawable});
     }
 
-    private static void updateSelectHandleColor(Drawable[] drawables, String[] fields,
-                                                EditText editText, int color) throws Exception {
+    private static void updateSelectHandleColor(Drawable drawable, String fields, EditText editText, int color) {
+        if (drawable == null) {
+            int resource = ReflectUtils.getIntField(TextView.class, fields, editText);
+            drawable = editText.getContext().getDrawable(resource);
+        }
 
-        for (int i = 0; i < fields.length; i++) {
-            Drawable drawable = drawables[i];
-
-            if (drawable == null) {
-                int resource = ReflectUtils.getIntField(TextView.class, fields[i], editText);
-                drawable = editText.getContext().getDrawable(resource);
-            }
-
-            if (drawable != null) {
-                drawable.setTint(color);
-            }
+        if (drawable != null) {
+            drawable.setTint(color);
         }
     }
 
