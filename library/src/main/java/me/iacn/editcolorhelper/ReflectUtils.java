@@ -22,6 +22,17 @@ public class ReflectUtils {
         return field;
     }
 
+    public static int getIntField(Class clazz, String fieldName, Object obj) {
+        Field field = getDeclaredField(clazz, fieldName);
+
+        try {
+            return field.getInt(obj);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public static void setObjectField(Class clazz, String fieldName, Object obj, Object value) {
         try {
             Field field = getDeclaredField(clazz, fieldName);

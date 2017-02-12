@@ -103,11 +103,8 @@ public class EditColorHelper {
             Drawable drawable = drawables[i];
 
             if (drawable == null) {
-                Field field = TextView.class.getDeclaredField(fields[i]);
-                field.setAccessible(true);
-                int res = (int) field.get(editText);
-
-                drawable = editText.getContext().getDrawable(res);
+                int resource = ReflectUtils.getIntField(TextView.class, fields[i], editText);
+                drawable = editText.getContext().getDrawable(resource);
             }
 
             if (drawable != null) {
