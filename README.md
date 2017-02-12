@@ -27,8 +27,8 @@ EditHelper.setColor(EditText, Color);
 可以看这儿 ***待添加***
 
 ### Sample
-![](https://ooo.0o0.ooo/2017/02/12/58a042cd24560.png)
-你可以从 [Github Releases]() 下载到 Sample 的安装包
+![](https://ooo.0o0.ooo/2017/02/12/58a045497a954.png)
+你可以从 [Github Releases](https://github.com/iAcn/EditColorHelper/releases) 下载到 Sample 的安装包
 
 ### License
 ```
