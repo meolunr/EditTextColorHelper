@@ -1,4 +1,4 @@
-package me.iacn.editcolorhelpersample;
+package me.iacn.editcolorhelper.sample;
 
 import android.app.Activity;
 import android.graphics.Color;
