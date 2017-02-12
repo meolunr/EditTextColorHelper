@@ -19,13 +19,7 @@ public class EditColorHelper {
     }
 
     public static void setUnderlineColor(EditText editText, int color) {
-        int[][] states = new int[1][];
-        states[0] = new int[]{};
-
-        int[] colors = new int[1];
-        colors[0] = color;
-
-        ColorStateList colorStateList = new ColorStateList(states, colors);
+        ColorStateList colorStateList = ColorUtils.getPureColorList(color);
         editText.setBackgroundTintList(colorStateList);
     }
 

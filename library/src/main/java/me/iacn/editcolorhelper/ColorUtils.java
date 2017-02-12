@@ -1,5 +1,7 @@
 package me.iacn.editcolorhelper;
 
+import android.content.res.ColorStateList;
+
 /**
  * Created by iAcn on 2017/2/12
  * Emali iAcn0301@foxmail.com
@@ -14,5 +16,15 @@ public class ColorUtils {
         }
 
         return (color & 0x00ffffff) | (alpha << 24);
+    }
+
+    public static ColorStateList getPureColorList(int color) {
+        int[][] states = new int[1][];
+        states[0] = new int[]{};
+
+        int[] colors = new int[1];
+        colors[0] = color;
+
+        return new ColorStateList(states, colors);
     }
 }
