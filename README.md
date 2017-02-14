@@ -24,7 +24,7 @@ EditHelper.setColor(EditText, Color);
 ```
 
 ### 如果还想了解？
-可以看这儿 ***待添加***
+可以看这儿 [Android 多主题之 EditText](https://iacn.me/2017/02/14/modify-edittext-color)
 
 ### Sample
 ![](https://ooo.0o0.ooo/2017/02/12/58a045b784300.png)  
