@@ -7,9 +7,9 @@ import java.lang.reflect.Field;
  * Emali iAcn0301@foxmail.com
  */
 
-public class ReflectUtils {
+class ReflectUtils {
 
-    public static Field getDeclaredField(Class clazz, String fieldName) {
+    static Field getDeclaredField(Class clazz, String fieldName) {
         Field field = null;
 
         try {
@@ -22,7 +22,7 @@ public class ReflectUtils {
         return field;
     }
 
-    public static int getIntField(Class clazz, String fieldName, Object obj) {
+    static int getIntField(Class clazz, String fieldName, Object obj) {
         Field field = getDeclaredField(clazz, fieldName);
 
         try {
@@ -33,7 +33,7 @@ public class ReflectUtils {
         }
     }
 
-    public static void setObjectField(Class clazz, String fieldName, Object obj, Object value) {
+    static void setObjectField(Class clazz, String fieldName, Object obj, Object value) {
         try {
             Field field = getDeclaredField(clazz, fieldName);
             field.set(obj, value);

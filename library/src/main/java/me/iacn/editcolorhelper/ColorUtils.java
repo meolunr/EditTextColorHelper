@@ -7,10 +7,10 @@ import android.content.res.ColorStateList;
  * Emali iAcn0301@foxmail.com
  */
 
-public class ColorUtils {
+class ColorUtils {
 
     // Copy from Android v4 support package
-    public static int setAlphaComponent(int color, int alpha) {
+    static int setAlphaComponent(int color, int alpha) {
         if (alpha < 0 || alpha > 255) {
             throw new IllegalArgumentException("alpha must be between 0 and 255.");
         }
@@ -18,7 +18,7 @@ public class ColorUtils {
         return (color & 0x00ffffff) | (alpha << 24);
     }
 
-    public static ColorStateList getPureColorList(int color) {
+    static ColorStateList getPureColorList(int color) {
         int[][] states = new int[1][];
         states[0] = new int[]{};
 
