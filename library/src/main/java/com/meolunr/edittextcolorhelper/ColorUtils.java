@@ -1,12 +1,11 @@
-package me.iacn.editcolorhelper;
+package com.meolunr.edittextcolorhelper;
 
 import android.content.res.ColorStateList;
 
 /**
- * Created by iAcn on 2017/2/12
- * Emali iAcn0301@foxmail.com
+ * Created by Meolunr on 2017/2/12
+ * Email meolunr@gmail.com
  */
-
 class ColorUtils {
 
     // Copy from Android v4 support package

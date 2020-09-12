@@ -1,4 +1,4 @@
-package me.iacn.editcolorhelper.sample;
+package com.meolunr.edittextcolorhelper.sample;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import me.iacn.editcolorhelper.EditColorHelper;
+import com.meolunr.edittextcolorhelper.EditTextColorHelper;
 
+/**
+ * Created by Meolunr on 2017/2/12
+ * Email meolunr@gmail.com
+ */
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private EditText etTest;
@@ -17,7 +21,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etTest = (EditText) findViewById(R.id.et_test);
+        etTest = findViewById(R.id.et_test);
 
         findViewById(R.id.btn_blue).setOnClickListener(this);
         findViewById(R.id.btn_red).setOnClickListener(this);
@@ -29,16 +33,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_blue:
-                EditColorHelper.setColor(etTest, Color.parseColor("#03A9F4"));
+                EditTextColorHelper.setColor(etTest, Color.parseColor("#03A9F4"));
                 break;
             case R.id.btn_red:
-                EditColorHelper.setColor(etTest, Color.parseColor("#E91E63"));
+                EditTextColorHelper.setColor(etTest, Color.parseColor("#E91E63"));
                 break;
             case R.id.btn_orange:
-                EditColorHelper.setColor(etTest, Color.parseColor("#FF9800"));
+                EditTextColorHelper.setColor(etTest, Color.parseColor("#FF9800"));
                 break;
             case R.id.btn_gray:
-                EditColorHelper.setColor(etTest, Color.parseColor("#607D8B"));
+                EditTextColorHelper.setColor(etTest, Color.parseColor("#607D8B"));
                 break;
         }
     }

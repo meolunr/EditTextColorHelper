@@ -1,4 +1,4 @@
-package me.iacn.editcolorhelper;
+package com.meolunr.edittextcolorhelper;
 
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
@@ -8,11 +8,10 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 /**
- * Created by iAcn on 2017/2/12
- * Emali iAcn0301@foxmail.com
+ * Created by Meolunr on 2017/2/12
+ * Email meolunr@gmail.com
  */
-
-public class EditColorHelper {
+public class EditTextColorHelper {
 
     private static Field mEditor;
     private static Field mCursorDrawableRes;

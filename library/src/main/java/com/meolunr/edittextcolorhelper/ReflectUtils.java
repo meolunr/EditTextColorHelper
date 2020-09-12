@@ -1,12 +1,11 @@
-package me.iacn.editcolorhelper;
+package com.meolunr.edittextcolorhelper;
 
 import java.lang.reflect.Field;
 
 /**
- * Created by iAcn on 2017/2/12
- * Emali iAcn0301@foxmail.com
+ * Created by Meolunr on 2017/2/12
+ * Email meolunr@gmail.com
  */
-
 class ReflectUtils {
 
     static Field getDeclaredField(Class clazz, String fieldName) {
