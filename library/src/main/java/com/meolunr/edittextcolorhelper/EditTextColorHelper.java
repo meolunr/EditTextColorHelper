@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 /**
@@ -13,12 +14,12 @@ import java.lang.reflect.Field;
  */
 public class EditTextColorHelper {
 
-    private static Field mEditor;
-    private static Field mCursorDrawableRes;
+    private static WeakReference<Field> mEditor;
+    private static WeakReference<Field> mCursorDrawableRes;
 
-    private static Field mSelectHandleLeft;
-    private static Field mSelectHandleRight;
-    private static Field mSelectHandleCenter;
+    private static WeakReference<Field> mSelectHandleLeft;
+    private static WeakReference<Field> mSelectHandleRight;
+    private static WeakReference<Field> mSelectHandleCenter;
 
     public static void setColor(EditText editText, int color) {
         // Update underline color
@@ -28,14 +29,13 @@ public class EditTextColorHelper {
         setHighlightColor(editText, color);
 
         try {
-            getEditorFieldFromReflect();
-            getCursorFieldFromReflect();
-            getSelectFieldFromReflect();
-            Object editor = mEditor.get(editText);
+            obtainEditorField();
+            obtainCursorField();
+            obtainSelectField();
+            Object editor = mEditor.get().get(editText);
 
             // Update cursor color
             setCursorColor(editText, color, editor);
-
             // Update select handle color
             setSelectHandleColor(editText, color, editor);
 
@@ -57,24 +57,24 @@ public class EditTextColorHelper {
 
     // Used for external calls
     public static void setCursorColor(EditText editText, int color) throws Exception {
-        getEditorFieldFromReflect();
+        obtainEditorField();
 
-        Object editor = mEditor.get(editText);
+        Object editor = mEditor.get().get(editText);
         setCursorColor(editText, color, editor);
     }
 
     // Used for external calls
     public static void setSelectHandleColor(EditText editText, int color) throws Exception {
-        getSelectFieldFromReflect();
+        obtainSelectField();
 
-        Object editor = mEditor.get(editText);
+        Object editor = mEditor.get().get(editText);
         setSelectHandleColor(editText, color, editor);
     }
 
     private static void setSelectHandleColor(EditText editText, int color, Object editor) throws Exception {
-        Drawable leftDrawable = (Drawable) mSelectHandleLeft.get(editor);
-        Drawable rightDrawable = (Drawable) mSelectHandleRight.get(editor);
-        Drawable centerDrawable = (Drawable) mSelectHandleCenter.get(editor);
+        Drawable leftDrawable = (Drawable) mSelectHandleLeft.get().get(editor);
+        Drawable rightDrawable = (Drawable) mSelectHandleRight.get().get(editor);
+        Drawable centerDrawable = (Drawable) mSelectHandleCenter.get().get(editor);
 
         updateSelectHandleColor(leftDrawable, "mTextSelectHandleLeftRes", editText, color);
         updateSelectHandleColor(rightDrawable, "mTextSelectHandleRightRes", editText, color);
@@ -82,14 +82,14 @@ public class EditTextColorHelper {
     }
 
     private static void setCursorColor(EditText editText, int color, Object editor) throws Exception {
-        int cursorId = mCursorDrawableRes.getInt(editText);
+        int cursorId = mCursorDrawableRes.get().getInt(editText);
         Drawable drawable = editText.getContext().getDrawable(cursorId);
 
         if (drawable != null) {
             drawable.setTint(color);
         }
 
-        ReflectUtils.setObjectField(mEditor.getType(), "mCursorDrawable",
+        ReflectUtils.setObjectField(mEditor.get().getType(), "mCursorDrawable",
                 editor, new Drawable[]{drawable, drawable});
     }
 
@@ -104,26 +104,28 @@ public class EditTextColorHelper {
         }
     }
 
-    private static void getEditorFieldFromReflect() {
-        if (mEditor == null) {
-            mEditor = ReflectUtils.getDeclaredField(TextView.class, "mEditor");
+    private static void obtainEditorField() {
+        if (mEditor == null || mEditor.get() == null) {
+            mEditor = new WeakReference<>(ReflectUtils.getDeclaredField(TextView.class, "mEditor"));
         }
     }
 
-    private static void getCursorFieldFromReflect() {
-        if (mCursorDrawableRes == null) {
-            mCursorDrawableRes = ReflectUtils.getDeclaredField(TextView.class, "mCursorDrawableRes");
+    private static void obtainCursorField() {
+        if (mCursorDrawableRes == null || mCursorDrawableRes.get() == null) {
+            mCursorDrawableRes = new WeakReference<>(ReflectUtils.getDeclaredField(TextView.class, "mCursorDrawableRes"));
         }
     }
 
-    private static void getSelectFieldFromReflect() {
-        if (mSelectHandleLeft == null || mSelectHandleRight == null || mSelectHandleCenter == null) {
+    private static void obtainSelectField() {
+        if (mSelectHandleLeft == null || mSelectHandleLeft.get() == null ||
+                mSelectHandleRight == null || mSelectHandleRight.get() == null ||
+                mSelectHandleCenter == null || mSelectHandleCenter.get() == null) {
 
-            Class<?> EditorClass = mEditor.getType();
+            Class<?> editorClass = mEditor.get().getType();
 
-            mSelectHandleLeft = ReflectUtils.getDeclaredField(EditorClass, "mSelectHandleLeft");
-            mSelectHandleRight = ReflectUtils.getDeclaredField(EditorClass, "mSelectHandleRight");
-            mSelectHandleCenter = ReflectUtils.getDeclaredField(EditorClass, "mSelectHandleCenter");
+            mSelectHandleLeft = new WeakReference<>(ReflectUtils.getDeclaredField(editorClass, "mSelectHandleLeft"));
+            mSelectHandleRight = new WeakReference<>(ReflectUtils.getDeclaredField(editorClass, "mSelectHandleRight"));
+            mSelectHandleCenter = new WeakReference<>(ReflectUtils.getDeclaredField(editorClass, "mSelectHandleCenter"));
         }
     }
 }
