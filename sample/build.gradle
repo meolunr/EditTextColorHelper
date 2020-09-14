@@ -23,4 +23,5 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
+    implementation 'me.weishu:free_reflection:3.0.1'
 }
