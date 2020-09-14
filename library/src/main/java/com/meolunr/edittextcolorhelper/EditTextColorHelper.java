@@ -2,6 +2,7 @@ package com.meolunr.edittextcolorhelper;
 
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -89,8 +90,12 @@ public class EditTextColorHelper {
             drawable.setTint(color);
         }
 
-        ReflectUtils.setObjectField(mEditor.get().getType(), "mCursorDrawable",
-                editor, new Drawable[]{drawable, drawable});
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
+            // Android O and lower (8.0-)
+            ReflectUtils.setObjectField(mEditor.get().getType(), "mCursorDrawable", editor, new Drawable[]{drawable, drawable});
+        } else {
+            ReflectUtils.setObjectField(mEditor.get().getType(), "mDrawableForCursor", editor, drawable);
+        }
     }
 
     private static void updateSelectHandleColor(Drawable drawable, String fields, EditText editText, int color) {
