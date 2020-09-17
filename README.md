@@ -1,9 +1,9 @@
-## EditColorHelper
+# EditColorHelper
 
-更改 EditText 的各种颜色
+一个为 EditText 设置主题色的帮助类
 
-### 如何使用？
-1.在你项目的 build.gradle 文件中添加
+### 如何使用
+1. 在 **项目** 的 build.gradle 文件中添加
 ```
 allprojects {
     repositories {
@@ -12,37 +12,23 @@ allprojects {
     }
 }
 ```
-2.配置依赖
+2. 配置依赖
 ```
 dependencies {
-    compile 'com.github.iAcn:EditColorHelper:v1.1'
+    implementation 'com.github.meolunr:EditTextColorHelper:v1.2'
 }
 ```
-3.尽情使用吧
+3. 尽情使用吧
 ```
-EditHelper.setColor(EditText, Color);
+EditTextColorHelper.setColor(EditText, Color);
 ```
 
-### 如果还想了解？
+### 如果还想了解
 可以看这儿 [Android 多主题之 EditText](https://iacn.me/2017/02/14/modify-edittext-color)
 
-### Sample
+### 样例
 ![](https://ooo.0o0.ooo/2017/02/12/58a045b784300.png)  
-你可以从 [Github Releases](https://github.com/iAcn/EditColorHelper/releases) 下载到 Sample 的安装包
+你可以在 [Releases](https://github.com/meolunr/EditTextColorHelper/releases) 页面下载到 Sample 的安装包
 
 ### License
-```
-Copyright 2017 iAcn
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0 
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[Apache License, version 2.0](LICENSE)
