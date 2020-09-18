@@ -1,4 +1,4 @@
-# EditColorHelper
+# EditTextColorHelper
 
 一个为 EditText 设置主题色的帮助类
 
